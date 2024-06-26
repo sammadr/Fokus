@@ -14,6 +14,10 @@ const botonIniciarPausar = document.querySelector('#start-pause');
 let tiempoTranscurridoEnSegundos = 5;
 let idIntervalo = null;
 
+const audioPlay = new Audio('./sonidos/play.wav');
+const audioPausa = new Audio('./sonidos/pause.mp3');
+const audioTiempoFinalizado = new Audio('./sonidos/beep.mp3');
+
 musica.loop = true;
 
 inputEnfoqueMusica.addEventListener('change', () => {
@@ -71,21 +75,25 @@ function cambiarContexto (contexto){
 
 const cuentaRegresiva = () => {
   if(tiempoTranscurridoEnSegundos <= 0){
-    reiniciar()
-    alert('Tiempo final')
+    audioTiempoFinalizado.play();
+    reiniciar();
+    alert('Tiempo final');
     return
   };
-  tiempoTranscurridoEnSegundos -= 1;
-  console.log("temporizador: " + tiempoTranscurridoEnSegundos);
+  tiempoTranscurridoEnSegundos -= 1
+  console.log('Tiempo: ' + tiempoTranscurridoEnSegundos) // Muestra el tiempo actual
+  console.log('Id: ' + intervaloId) // Muestra el ID actual
 }
 
 botonIniciarPausar.addEventListener('click', iniciarPausar);
 
 function iniciarPausar(){
   if(idIntervalo){
-    reiniciar();
+    audioPausa.play();
+    reiniciar()
     return
   }
+  audioPlay.play();
   idIntervalo = setInterval(cuentaRegresiva, 1000);
 }
 
