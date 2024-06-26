@@ -18,6 +18,9 @@ const audioPlay = new Audio('./sonidos/play.wav');
 const audioPausa = new Audio('./sonidos/pause.mp3');
 const audioTiempoFinalizado = new Audio('./sonidos/beep.mp3');
 
+const textoIniciarPausar = document.querySelector('#start-pause');
+const iconoIniciarPausar = document.querySelector(".app__card-primary-butto-icon");
+
 musica.loop = true;
 
 inputEnfoqueMusica.addEventListener('change', () => {
@@ -80,9 +83,11 @@ const cuentaRegresiva = () => {
     alert('Tiempo final');
     return
   };
+  textoIniciarPausar.textContent = "Pausar";
+  iconoIniciarPausar.setAttribute('src', `./imagenes/pause.png`);
   tiempoTranscurridoEnSegundos -= 1
   console.log('Tiempo: ' + tiempoTranscurridoEnSegundos) // Muestra el tiempo actual
-  console.log('Id: ' + intervaloId) // Muestra el ID actual
+  console.log('Id: ' + idIntervalo) // Muestra el ID actual
 }
 
 botonIniciarPausar.addEventListener('click', iniciarPausar);
@@ -100,4 +105,6 @@ function iniciarPausar(){
 function reiniciar(){
   clearInterval(idIntervalo);
   idIntervalo = null;
+  textoIniciarPausar.textContent = 'Comenzar';
+  iconoIniciarPausar.setAttribute('src', `./imagenes/play_arrow.png`);
 }
